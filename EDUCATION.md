@@ -1,19 +1,33 @@
-# Education
+# Education — schema wildcard recipe slots
 
-## The pitfall
+> **Rung:** `npm test` passes. Matching only — no mint/burn.  
+> Sibling exact-only gate: [simple blend](https://github.com/pixel-journey/px-blend-simple-nft-to-nft).
 
-Exact-template recipes are easy to reason about and easy to exhaust. Games often want “any Pixal of schema X” without listing every template id. Encoding that as “any asset in the collection” is too wide: wrong schemas and unrelated templates slip in.
+## What you should be able to do
 
-## The rule
+| Level | Skill |
+| --- | --- |
+| Beginner | `templateId: -1` means any template under a schema |
+| Intermediate | Exact slots bind before wildcards |
+| Masterclass | Why bind order prevents wildcards from stealing concrete matches |
 
-1. `templateId >= 1` — exact template **and** schema.
-2. `templateId === -1` — any template whose **schema** equals the slot schema.
-3. Exact slots bind first so a specific template is not stolen by a wildcard.
+## Beginner
 
-This lab only assigns assets to slots. Mint, burn, minter auth, and supply checks live in the simple and hybrid blend labs.
+Recipe slots:
 
-## What this is not
+- `templateId >= 1` — exact template under the given schema
+- `templateId === -1` — **any** template under that schema
 
-- Not a full craft transaction.
-- Not a live schema table read.
-- Not wasm.
+Offers must be owned by the caller; one asset per id; counts must match.
+
+## Intermediate
+
+Algorithm: assign **exact** slots first, then fill wildcards from remaining offers. That way a concrete template cannot be consumed by an earlier wildcard greedily in a bad order.
+
+## Masterclass
+
+Wildcards increase player flexibility and **grief surface** (wrong schema assets). Still require chain-sourced ownership in production (simple blend pattern). Max 20 slots in this lab.
+
+## Will not teach
+
+Live AtomicAssets reads, mint/burn bodies, or FT rails (see hybrid blend).

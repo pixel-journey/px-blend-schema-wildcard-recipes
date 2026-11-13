@@ -4,13 +4,21 @@
 > **Sources:** [SOURCES.md](SOURCES.md)  
 > **Catalog:** [px-contract-examples-vault](https://github.com/pixel-journey/px-contract-examples-vault)
 
-**Goal:** A recipe slot with **`templateId: -1`** accepts **any** template under a named **schema**. Exact slots (`templateId >= 1`) still require an exact id. Exact slots bind first so wildcards cannot steal a concrete match.
+**Goal:** `templateId: -1` accepts **any** template under a named **schema**. Exact slots bind **first** so wildcards cannot steal a concrete match.
 
-Different from [px-blend-simple-nft-to-nft](https://github.com/pixel-journey/px-blend-simple-nft-to-nft), which matches exact template multisets only.
+**Code under test:** `npm test`. Pure matching — no mint/burn, no live reads.
 
-**Official AtomicAssets:** [contract](https://github.com/pinknetworkx/atomicassets-contract). **WAX:** [How-To AtomicAssets](https://docs.wax.io/build/tutorials/howto_atomicassets).
+**Official:** [atomicassets-contract](https://github.com/pinknetworkx/atomicassets-contract). **Sibling:** [simple NFT blend](https://github.com/pixel-journey/px-blend-simple-nft-to-nft).
 
-**Code under test:** `npm test` (10 tests). Pure matching lab — no wasm, no mint/burn, no live AtomicAssets read.
+## Learning materials
+
+| Doc | Role |
+| --- | --- |
+| [EDUCATION.md](EDUCATION.md) | Beginner → masterclass |
+| [WORKED-EXAMPLES.md](WORKED-EXAMPLES.md) | Exact-first bind, refusals |
+| [TIPS.md](TIPS.md) | UX and caps |
+| [SECURITY.md](SECURITY.md) | Ownership and steal |
+| [SOURCES.md](SOURCES.md) | Official + related |
 
 ## What is true (executed)
 
@@ -18,16 +26,11 @@ Different from [px-blend-simple-nft-to-nft](https://github.com/pixel-journey/px-
 |------|--------|
 | Exact slots | Multiset match on template + schema |
 | Wildcard `-1` | Any template under the slot schema |
-| Bind order | Exact slots consume assets before wildcards |
-| Wrong schema / empty / duplicates / non-owner / id 0 / >20 | Refused |
+| Bind order | Exact before wildcards |
+| Wrong schema / empty / duplicates / non-owner | Refused |
 
 ```bash
 npm test
 ```
-
-## Related
-
-- [px-blend-simple-nft-to-nft](https://github.com/pixel-journey/px-blend-simple-nft-to-nft)
-- [px-blend-hybrid-ft-plus-nft](https://github.com/pixel-journey/px-blend-hybrid-ft-plus-nft)
 
 MIT — Pixel Journey
