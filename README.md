@@ -1,17 +1,16 @@
-# px-blend-schema-wildcard-recipes
+# Blend slots: schema wildcards vs exact templates
 
-> **Trust:** private educational lab (Tier B)  
 > **Domain:** blend recipe slots (schema wildcard)  
 > **Sources:** [SOURCES.md](SOURCES.md)  
-> **Vault:** [px-contract-examples-vault](https://github.com/pixel-journey/px-contract-examples-vault)
+> **Catalog:** [px-contract-examples-vault](https://github.com/pixel-journey/px-contract-examples-vault)
 
-**One-sentence goal:** A recipe slot with **`templateId: -1`** accepts **any** template under a named **schema**. Exact slots (`templateId >= 1`) still require an exact id. Exact slots bind first.
+**Goal:** A recipe slot with **`templateId: -1`** accepts **any** template under a named **schema**. Exact slots (`templateId >= 1`) still require an exact id. Exact slots bind first so wildcards cannot steal a concrete match.
 
-Different from [px-blend-simple-nft-to-nft](https://github.com/pixel-journey/px-blend-simple-nft-to-nft) (exact template multisets only).
+Different from [px-blend-simple-nft-to-nft](https://github.com/pixel-journey/px-blend-simple-nft-to-nft), which matches exact template multisets only.
 
-Official AtomicAssets: [contract](https://github.com/pinknetworkx/atomicassets-contract). WAX: [How-To](https://docs.wax.io/build/tutorials/howto_atomicassets).
+**Official AtomicAssets:** [contract](https://github.com/pinknetworkx/atomicassets-contract). **WAX:** [How-To AtomicAssets](https://docs.wax.io/build/tutorials/howto_atomicassets).
 
-**Real code:** `npm test` (10 tests). **Not** wasm, **not** mint/burn, **no** live AtomicAssets read.
+**Code under test:** `npm test` (10 tests). Pure matching lab — no wasm, no mint/burn, no live AtomicAssets read.
 
 ## What is true (executed)
 
@@ -30,7 +29,5 @@ npm test
 
 - [px-blend-simple-nft-to-nft](https://github.com/pixel-journey/px-blend-simple-nft-to-nft)
 - [px-blend-hybrid-ft-plus-nft](https://github.com/pixel-journey/px-blend-hybrid-ft-plus-nft)
-
-## License
 
 MIT — Pixel Journey
