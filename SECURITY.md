@@ -1,11 +1,23 @@
-# Security notes — wildcard slots
+# Security
 
-| Mitigated | Behavior |
-| --- | --- |
-| Non-owner offers | refused |
-| Duplicate assets | refused |
-| Count mismatch | refused |
-| Bad template ids | refused |
-| Exact-before-wildcard | prevents steal |
+## Closed by tests
 
-Production: chain ownership rows, burnable checks, consumed-id desk, collection mint auth (simple/hybrid blends).
+- Non-owner offer.
+- Duplicate asset id used twice.
+- Slot count not equal to offer count, including the empty recipe.
+- Template id `0` (only `-1` or `>= 1`).
+- More than 20 slots.
+- Exact template consumed by an earlier wildcard (bind order).
+- Right template, wrong schema.
+
+## Not closed
+
+- Offers are plain objects. A caller can claim an asset id they do not hold on chain. The simple blend lab is where chain rows are required.
+- No `require_auth`.
+- No check that the template actually belongs to that schema on chain.
+- No mint, so there is no output-supply or `authorized_minter` test.
+- Owner strings are compared, not permissions. `alice@active` is not modeled.
+
+## Attack
+
+Recipe: one exact “hero” card and one “any common.” A greedy matcher lets the wildcard take the hero, then rejects the craft or, worse, accepts a second common as the hero. Players burn the wrong NFT. The two-pass test is the patch.

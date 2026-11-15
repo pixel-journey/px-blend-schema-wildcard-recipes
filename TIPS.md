@@ -1,8 +1,8 @@
-# Tips — wildcard recipes
+# Tips
 
-- Document wildcard slots clearly in UX (“any Common card”).
-- Bind exact first in code **and** in tests.
-- Pair with [simple blend](https://github.com/pixel-journey/px-blend-simple-nft-to-nft) for burn/mint gates after match.
-- Cap batch size for RAM and CPU.
-
-Related: [hybrid FT+NFT](https://github.com/pixel-journey/px-blend-hybrid-ft-plus-nft), [memo router](https://github.com/pixel-journey/px-memo-action-router).
+- Write the UX as “any template in schema pixsch,” not as template id `-1`. The sentinel is an implementation detail.
+- Keep the two-pass order in any port to C++. A left-to-right loop is a different algorithm and will fail `fills exact slots before wildcards`.
+- After this function returns ids, hand them to the simple blend lab's burn-or-treasury then mint sequence. This file does not build those actions.
+- `MAX_SLOTS` is 20, same shape as the simple blend ingredient cap. Do not raise one without the other if they share a craft transaction.
+- Schema names here allow `.`. Do not assume the invariant-kit name charset.
+- Collection is not a field. Two templates with the same id in different collections are indistinguishable in this lab. Production must load collection from the asset row.
