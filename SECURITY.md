@@ -25,11 +25,12 @@
 
 ## Attack angles
 
-1. **Greedy one-pass** — wildcard takes the only hero card; exact slot fails or a common is accepted as hero. Players burn the wrong NFT. Two-pass is the patch.
+1. **Greedy one-pass** — wildcard takes the only hero card; exact slot fails or a common is accepted as hero. Players burn the wrong NFT. **Two-pass** (exact slots first) is the patch.
 2. Duplicate ids filling two slots.
 3. Trusting offer schema/template without reading the asset row.
 4. Using `-1` as the **mint** template id (output must be a real template).
+5. Stopping at match and calling craft complete (still need burns/mint from the simple blend lab).
 
 ## Honesty limits
 
-Matching only. No burn, no mint, no AtomicAssets RPC. Related: [simple blend](https://github.com/pixel-journey/px-blend-simple-nft-to-nft) · [hybrid](https://github.com/pixel-journey/px-blend-hybrid-ft-plus-nft).
+Matching only. No burn, no mint, no AtomicAssets RPC. Related: [simple blend](https://github.com/pixel-journey/px-blend-simple-nft-to-nft) · [hybrid](https://github.com/pixel-journey/px-blend-hybrid-ft-plus-nft) · [atomicassets-contract](https://github.com/pinknetworkx/atomicassets-contract).
