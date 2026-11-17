@@ -1,23 +1,35 @@
-# Security
+# Security — schema wildcard match
 
-## Closed by tests
+## Closed in tests
 
-- Non-owner offer.
-- Duplicate asset id used twice.
-- Slot count not equal to offer count, including the empty recipe.
-- Template id `0` (only `-1` or `>= 1`).
-- More than 20 slots.
-- Exact template consumed by an earlier wildcard (bind order).
-- Right template, wrong schema.
+| Issue | Behavior |
+| --- | --- |
+| Non-owner offer | refused |
+| Duplicate asset id | refused |
+| Slot count ≠ offer count (incl. empty) | refused |
+| Template id `0` | refused (only `-1` or `>= 1`) |
+| More than 20 slots | refused |
+| Exact template eaten by an earlier wildcard | prevented by **exact-before-wildcard** bind order |
+| Right template, wrong schema | refused |
 
-## Not closed
+## Not closed (production)
 
-- Offers are plain objects. A caller can claim an asset id they do not hold on chain. The simple blend lab is where chain rows are required.
-- No `require_auth`.
-- No check that the template actually belongs to that schema on chain.
-- No mint, so there is no output-supply or `authorized_minter` test.
-- Owner strings are compared, not permissions. `alice@active` is not modeled.
+| Concern | Guidance |
+| --- | --- |
+| Offer objects | Caller can claim an id they do not hold — [simple blend](https://github.com/pixel-journey/px-blend-simple-nft-to-nft) requires chain rows |
+| Auth | Real `require_auth(caller)` |
+| Schema membership | Template must actually belong to that schema on chain |
+| Mint / supply | No mint here — no output-supply or authorized_minter test |
+| Permissions | Owner strings, not `alice@active` |
+| Collection scope | This matcher cannot tell two collections' template ids apart |
 
-## Attack
+## Attack angles
 
-Recipe: one exact “hero” card and one “any common.” A greedy matcher lets the wildcard take the hero, then rejects the craft or, worse, accepts a second common as the hero. Players burn the wrong NFT. The two-pass test is the patch.
+1. **Greedy one-pass** — wildcard takes the only hero card; exact slot fails or a common is accepted as hero. Players burn the wrong NFT. Two-pass is the patch.
+2. Duplicate ids filling two slots.
+3. Trusting offer schema/template without reading the asset row.
+4. Using `-1` as the **mint** template id (output must be a real template).
+
+## Honesty limits
+
+Matching only. No burn, no mint, no AtomicAssets RPC. Related: [simple blend](https://github.com/pixel-journey/px-blend-simple-nft-to-nft) · [hybrid](https://github.com/pixel-journey/px-blend-hybrid-ft-plus-nft).
