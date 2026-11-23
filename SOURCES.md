@@ -9,6 +9,12 @@
 | [Blend tutorial](https://docs.wax.io/build/tutorials/howto_atomicassets/blend_nft) | Craft pattern after match |
 | [Minting NFTs](https://docs.wax.io/build/tutorials/howto_atomicassets/mint_nft) | After match: mint a **real** template id |
 | [docs.wax.io](https://docs.wax.io/) | Network docs |
+| [atomic-knowledge](https://github.com/atomicassets/atomic-knowledge) | Network before action |
+| [wharfkit/skill](https://github.com/wharfkit/skill) | SessionKit for a later host |
+
+```bash
+git clone https://github.com/wharfkit/skill.git ~/.claude/skills/wharfkit
+```
 
 ## Product facts locked by this lab
 
@@ -19,6 +25,10 @@
 - The mint target is always a real template id, never `-1`.
 - Schema names in this lab allow `.`. Do not merge with [invariant-kit](https://github.com/pixel-journey/px-invariant-kit) name rules without a test.
 - Collection scope is not enforced here. Production must load collection from the asset row.
+
+## Portability
+
+Two-pass match ports wherever AtomicAssets templates/schemas exist. Collection ids, contract account, and ABI version are chain-local.
 
 ## Related labs
 
